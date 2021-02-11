@@ -9,7 +9,7 @@ import 'moment-duration-format'
 export default {
   data() {
     return {
-      countdown: 10, // 5min
+      countdown: 300, // 5min
     }
   },
   mounted() {
