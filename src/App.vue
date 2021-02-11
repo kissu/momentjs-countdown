@@ -1,28 +1,28 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div>{{ formatedCountdown || 'countdown over' }}</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import * as moment from 'moment'
+import 'moment-duration-format'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  data() {
+    return {
+      countdown: 10, // 5min
+    }
+  },
+  mounted() {
+    const stopCountdown = setInterval(() => {
+      console.log('current countdown', this.countdown)
+      this.countdown -= 1
+      if (!this.countdown) clearInterval(stopCountdown)
+    }, 1000)
+  },
+  computed: {
+    formatedCountdown() {
+      return moment.duration(this.countdown, 'seconds').format('m:ss')
+    },
+  },
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
